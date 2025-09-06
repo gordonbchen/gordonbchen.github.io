@@ -1,0 +1,25 @@
+body {
+    background-color: #000000;
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    color: #efefef
+}
+
+h1 {
+    font-size: 36px;
+}
+
+a {
+    color: #a0a0ff;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: #e0e0e0;
+}
+
+.box {
+    width: 1000px;
+    margin: 0 auto;
+}
