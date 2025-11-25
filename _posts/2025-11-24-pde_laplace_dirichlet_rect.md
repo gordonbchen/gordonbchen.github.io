@@ -1,5 +1,5 @@
 ---
-title: "PDEs: Laplace Equation"
+title: "Laplace PDE: Dirichlet Problem on a Rectangle"
 layout: post
 ---
 
