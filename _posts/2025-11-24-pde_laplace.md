@@ -146,6 +146,7 @@ $$u_n = \sinh(\gamma_n x) \sin(\gamma_n y) \qquad \gamma_n = \frac{n \pi}{M}$$
 
 ### Generalizing:
 {% include post-img.html file="dp_rect.png" width="60%" %}
+<!-- https://math.preview.excalidraw.com/#json=l2_A6QyhPh2nk3Dmgc2wZ,nFsm7bWhxSxbAzM9bPyvww -->
 
 Problem:
 
