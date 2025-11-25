@@ -135,11 +135,11 @@ $$u_n = \sinh(\lambda_n y) \sin(\lambda_n x) \qquad \lambda_n = \frac{n \pi}{L}$
 ### Non-Zero Left and Right Edges:
 Just swap x and y.
 
-$u(0, y) = h(y) \qquad y(L, y) = 0$:
+$u(0, y) = h(y) \qquad u(L, y) = 0$:
 
 $$u_n = \sinh(\gamma_n (L - x)) \sin(\gamma_n y) \qquad \gamma_n = \frac{n \pi}{M}$$
 
-$u(0, y) = 0 \qquad y(L, y) = k(y)$:
+$u(0, y) = 0 \qquad u(L, y) = k(y)$:
 
 $$u_n = \sinh(\gamma_n x) \sin(\gamma_n y) \qquad \gamma_n = \frac{n \pi}{M}$$
 
@@ -172,6 +172,6 @@ $$u_n^1 = \sinh \left[ \lambda_n (M - y) \right] \sin(\lambda_n x) \qquad \lambd
 
 $$u_n^2 = \sinh(\lambda_n y) \sin(\lambda_n x)$$
 
-$$u_n^3 = \sinh(\gamma_n (L - x)) \sin(\gamma_n y) \gamma_n = \frac{n \pi}{M}$$
+$$u_n^3 = \sinh(\gamma_n (L - x)) \sin(\gamma_n y) \qquad \gamma_n = \frac{n \pi}{M}$$
 
 $$u_n^4 = \sinh(\gamma_n x) \sin(\gamma_n y)$$
