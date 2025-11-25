@@ -50,7 +50,7 @@ $$u = \left[ d_1 \sinh(\lambda y) + d_2 \cosh(\lambda y) \right] \left[ (c_1 \si
 
 Problem:
 
-$$\Delta u = 0$$
+$$\Delta u = 0 \qquad x \in (0, L), \ y \in (0, M)$$
 
 $$u(x, 0) = f(x) \qquad u(x, M) = 0$$
 
@@ -150,7 +150,7 @@ $$u_n = \sinh(\gamma_n x) \sin(\gamma_n y) \qquad \gamma_n = \frac{n \pi}{M}$$
 
 Problem:
 
-$$\Delta u = 0$$
+$$\Delta u = 0 \qquad x \in (0, L), \ y \in (0, M)$$
 
 $$u(x, 0) = f(x) \qquad u(x, M) = g(x)$$
 
