@@ -1,0 +1,17 @@
+{% assign cats = include.categories | split: ', ' %}
+
+<ul>
+{% for post in site.posts %}
+  {% assign show = true %}
+
+  {% for c in cats %}
+    {% unless post.categories contains c %}
+      {% assign show = false %}
+    {% endunless %}
+  {% endfor %}
+
+  {% if show %}
+    <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+  {% endif %}
+{% endfor %}
+</ul>

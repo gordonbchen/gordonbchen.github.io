@@ -1,4 +1,5 @@
-{% assign src = '/assets/posts/' | append: page.slug | append: '/' | append: include.file | relative_url %}
+{% assign cat_path = page.categories | join: '/' %}
+{% assign src = cat_path | append: '/' | append: include.file | relative_url %}
 {% assign width = include.width | default: '100%' %}
 
 <img src="{{ src }}"

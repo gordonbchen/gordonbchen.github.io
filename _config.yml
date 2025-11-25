@@ -53,3 +53,4 @@ plugins:
 #   - vendor/ruby/
 
 slugify: default
+permalink: /:categories/
