@@ -1,0 +1,6 @@
+{% assign src = '/assets/posts/' | append: page.slug | append: '/' | append: include.file | relative_url %}
+{% assign width = include.width | default: '100%' %}
+
+<img src="{{ src }}"
+     alt="{{ include.alt | default: include.file }}"
+     style="display:block;margin-left:auto;margin-right:auto;width:{{ width }};max-width:100%;">
