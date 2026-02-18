@@ -6,6 +6,7 @@
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{titling}
+\usepackage{color}
 
 \setlength{\parindent}{0pt}
 \setlength{\droptitle}{-1cm}
@@ -63,15 +64,33 @@ $=\begin{pmatrix} \pi_1 & \pi_2 \\ \pi_1 & \pi_2 \end{pmatrix} + \lambda_2 \vec{
 $\lim_{n\to\infty} A^n = P D^n P^{-1} = \begin{pmatrix} \pi_1 & \pi_2 \\ \pi_1 & \pi_2 \end{pmatrix} + \lambda_2^n \vec{r_2}\vec{l_2}$
 $= \begin{pmatrix} \pi_1 & \pi_2 \\ \pi_1 & \pi_2 \end{pmatrix}$
 since $|\lambda_2| < 1$
-\subsection{Limit Distributions}
 
+\subsubsection{Doubly Stochastic}
+Doubly Stochastic: $\vec{1} P = \vec{1}$, ie columns of $P$ sum to 1. Then $\pi = \vec{1} / n$. \\
+
+Symmetric: $P = P^T$. Since a Markov Chain requires $P \vec{1} = \vec{1}$, $\vec{1}^T P = \vec{1}^T$, and $\pi = \vec{1} / n$. Special case of Doubly Stochastic. 
+
+\subsubsection{Reversibility: Detailed Balance, Kolmogorov Cycle, and Symmetrizable}
+Reversible = Detailed Balance Condition = Symmetrizable Matrix = Kolmogorov Cycle Condition. \\
+
+Detailed Balance Condition: \boxed{\pi_i P_{ij} = \pi_j P_{ji}}. \\
+
+Kolmogorov Cycle Condition: for every cycle $x_0, x_1, x_2, \dots, x_n = x_0$, \boxed{\prod_{i=0}^{n-1} p(x_i, x_{i+1}) = \prod_{i=0}^{n-1} p(x_{i+1}, x_i)}. \\
+
+Symmetrizable matrix $P$: \boxed{S = D P D^{-1}} is symmetric for some diagonal matrix $D$. If $P$ is symmetrizable, then $D = \text{diag}(\sqrt{\pi_i})$.
+
+\colorbox{red}{TODO: all linear markov chains are reversible, 3x3 KCC}
+
+
+\subsection{Limit Distributions}
+\colorbox{red}{TODO: perron frobenius, lim sum f(x) = sum f(x) pi(x)}
 
 \subsection{Exit Distributions}
 $V_F = \min\{n \ge 0: X_n \in F\}$ is the Hitting Time of set $F$, the first time $X$ takes on a state in $F$. \\
 
 $\mathbb{P}_x(V_A < V_B)$ is the probability that $X$, starting in state $X_0 = x$, takes on a state in $A$ (wins) before taking on a state in $B$ (loses). \\
 
-Let $\mathbb{P}_x(V_A < V_B) = h(x)$. $h(a) = 1$ for all $a \in A$, and $h(b) = 0$ for all $b \in B$. \boxed{h(x) = \sum_y P_{x,y} h(y)}. \\
+Let $\mathbb{P}_x(V_A < V_B) = h(x)$. $h(a) = 1$ for all $a \in A$, and $h(b) = 0$ for all $b \in B$. \boxed{h(x) = \sum_y p(x, y) h(y)}. \\
 
 \subsubsection{Example}\label{subsec:fair_gambler}
 A gambler wins \$1 with $p=1/2$ and loses \$1 with $p=1/2$. If he ever reaches \$0, the casino makes him stop. If he ever reaches \$4, he is happy and goes home. Let $X \in \{0, 1, 2, 3, 4\}$ be the amount of money the gambler has. Note that $X = 0$ and $X = 4$ are absorbing states. Let $A = \{4\}$ and $B = \{0\}$, so $h(x) = \mathbb{P}_x(V_A < V_B)$ is the probability that the gambler ends up going home with \$4 given that he currently has $\$x$.
@@ -127,7 +146,7 @@ h
 \end{pmatrix}$$
 \end{minipage} \\ \\
 
-Let $C = S-A-B$, $R = P_{x \in C, y \in C}$, and $v_i = P_{i,a}$. \\
+Let $C = S-A-B$, $R = P_{x \in C, y \in C}$, and $v_i = p(i, a)$. \\
 
 \boxed{h = R h + v}. then $(I-R) h = v$ and $h = (I-R)^{-1} v$.
 
