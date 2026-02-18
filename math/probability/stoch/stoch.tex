@@ -1,15 +1,19 @@
 \documentclass{article}
-\usepackage[margin=0.75in]{geometry}
 
+\usepackage[margin=0.75in]{geometry}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{titling}
+
+\setlength{\parindent}{0pt}
+\setlength{\droptitle}{-1cm}
 
 \title{Stochastic Processes Notes}
 \author{gordonbchen}
 \begin{document}
-\date{Spring 2026}
+\date{}
 \maketitle
 
 
@@ -20,6 +24,47 @@ Markov property: $\boxed{\mathbb{P}(X_{n+1} | X_n, X_{n-1} \dots X_1, X_0) = \ma
 $P_{i,j} = \mathbb{P}(X_{n+1}=j | X_n=i)$. Since $\sum_j \mathbb{P}(X_{n+1}=j | X_n=i) = 1$, then \boxed{P \vec{1} = \vec{1}}. \\
 
 $m$-step transition probability: \boxed{\mathbb{P}(X_{n+m}=j | X_n=i) = P^m(i,j)}.
+
+
+\subsection{Classifications}
+\subsubsection{Transient and Recurrent States}
+Let $\mathbb{P}_y(T_y < \infty) = \rho_{yy}$ be the probability of returning to $y$, where $T_y = \min\{n \ge 1: X_n = y\}$ is the time of first return to $y$. Then the probability of returning to $y$, $k$ times is $\mathbb{P}_y(T^k_y < \infty) = \rho_{yy}^k$. \\
+
+If $\rho_{yy} < 1$, then $\lim_{k\to\infty} \rho^k_{yy} = 0$ and the state is transient. The probability for visiting the state more and more times goes to 0, and at some point, the state is never visited again. \\
+
+Otherwise, if $\rho_{yy} = 1$, then $\lim_{k\to\infty} \rho^k_{yy} = 1$ and the state is recurrent. The state will be visited infinitely many times. \\
+
+If a set is finite, closed (cannot leave set), and irreducible (all states communicate with each other), then all of its states are recurrent.
+
+\subsubsection{Period}
+Period of Markov Chain: greatest common divisor of all $I_x = \{n \ge 1: p^n(x, x) > 0\}$, length of all cycles. \\
+
+Aperiodic Markov Chain: period = 1.
+
+
+\subsection{Stationary Distribution}
+Stationary distribution $\pi$: \boxed{\pi P = \pi}
+
+\subsubsection{Spectral Theory}
+$A = \begin{pmatrix}
+a & 1-a \\ 
+1-b & b
+\end{pmatrix}$.
+$A$ has eigenvalues $\lambda_1 = 1, \lambda_2 = a+b-1$. $|\lambda_2| < 1$.\\
+
+$\vec{1}$ is a right eigenvalue of $A$, $A \vec{1} = \vec{1}$. $\pi$ is a left eigenvalue of $A$, $\pi A = \pi$. \\
+
+$A = P D P^{-1}$, where $P$ are the right eigenvectors of $A$, $D$ is a diagonal matrix of eigenvalues, and $P^{-1}$ is the matrix of left eigenvectors (rows). To see this last part, note that $A^T = (P^{-1})^T D P^T$ and left eigenvectors are eigenvectors of $A^T$. \\
+
+$A = \begin{pmatrix}\vec{r}_1 & \vec{r}_2\end{pmatrix} \begin{pmatrix}\lambda_1 & 0 \\ 0 & \lambda_2\end{pmatrix} \begin{pmatrix}\vec{l}_1 \\ \vec{l}_2\end{pmatrix}$
+$= \lambda_1 \vec{r}_1 \vec{l}_1 + \lambda_2 \vec{r}_2 \vec{l}_2$
+$=\begin{pmatrix} \pi_1 & \pi_2 \\ \pi_1 & \pi_2 \end{pmatrix} + \lambda_2 \vec{r_2}\vec{l_2}$ \\
+
+$\lim_{n\to\infty} A^n = P D^n P^{-1} = \begin{pmatrix} \pi_1 & \pi_2 \\ \pi_1 & \pi_2 \end{pmatrix} + \lambda_2^n \vec{r_2}\vec{l_2}$
+$= \begin{pmatrix} \pi_1 & \pi_2 \\ \pi_1 & \pi_2 \end{pmatrix}$
+since $|\lambda_2| < 1$
+\subsection{Limit Distributions}
+
 
 \subsection{Exit Distributions}
 $V_F = \min\{n \ge 0: X_n \in F\}$ is the Hitting Time of set $F$, the first time $X$ takes on a state in $F$. \\
@@ -75,16 +120,16 @@ $$\begin{pmatrix}
 -.5  & 1  & -.5 \\
 0   & -.5  & 1 \\
 \end{pmatrix}
-\vec{h}
+h
 =
 \begin{pmatrix}
 0 \\ 0 \\ .5
 \end{pmatrix}$$
 \end{minipage} \\ \\
 
-Let $C = S-A-B$, $R = P_{x \in C, y \in C}$, and $\vec{v}_i = P_{i,a}$. \\
+Let $C = S-A-B$, $R = P_{x \in C, y \in C}$, and $v_i = P_{i,a}$. \\
 
-\boxed{\vec{h} = R \vec{h} + \vec{v}}. then $(I-R) \vec{h} = \vec{v}$ and $\vec{h} = (I-R)^{-1} \vec{v}$.
+\boxed{h = R h + v}. then $(I-R) h = v$ and $h = (I-R)^{-1} v$.
 
 
 \subsubsection{Limit distributions with transient states}
@@ -117,7 +162,7 @@ $$P=\begin{array}{c|cc|cc}
 2 & 0 & .5 & .2 & .3 \\
 \end{array}$$
 
-$\vec{h} = R \vec{h} + \vec{v}$, solving gives $h = (11/40, 2/5)$.
+$h = R h + v$, solving gives $h = (11/40, 2/5)$.
 \end{minipage} \\ \\ \\ \\
 
 \begin{minipage}[t]{0.5\textwidth}
@@ -126,11 +171,11 @@ $\vec{h} = R \vec{h} + \vec{v}$, solving gives $h = (11/40, 2/5)$.
 $\lim_{n \to \infty} P^n = \begin{array}{c|c|c|c}
 & T & A & B \\
 \hline
-T & 0 & \vec{h} \vec{\pi_A} & (1-\vec{h}) \vec{\pi_B}\\
+T & 0 & h \pi_A & (1-h) \pi_B\\
 \hline
-A & 0 & \vec{1} \vec{\pi_A} & 0 \\
+A & 0 & \vec{1} \pi_A & 0 \\
 \hline
-B & 0 & 0 & \vec{1} \vec{\pi_B} \\
+B & 0 & 0 & \vec{1} \pi_B \\
 \end{array}$
 \end{minipage}
 \begin{minipage}[t]{0.5\textwidth}
@@ -187,11 +232,11 @@ g(4)
 \hspace{2em}
 \begin{minipage}[t]{0.24\textwidth}
 \vspace*{1\baselineskip}
-\boxed{\vec{g} = \vec{1} + R \vec{g}} \\
+\boxed{g = \vec{1} + R g} \\
 
-$(I-R) \vec{g} = \vec{1}$ \\
+$(I-R) g = \vec{1}$ \\
 
-$\vec{g} = (I-R)^{-1} \ \vec{1}$
+$g = (I-R)^{-1} \ \vec{1}$
 \end{minipage} \\ \\
 
 
