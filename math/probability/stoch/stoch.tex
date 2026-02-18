@@ -75,15 +75,18 @@ Reversible = Detailed Balance Condition = Symmetrizable Matrix = Kolmogorov Cycl
 
 Detailed Balance Condition: \boxed{\pi_i P_{ij} = \pi_j P_{ji}}. \\
 
-Kolmogorov Cycle Condition: for every cycle $x_0, x_1, x_2, \dots, x_n = x_0$, \boxed{\prod_{i=0}^{n-1} p(x_i, x_{i+1}) = \prod_{i=0}^{n-1} p(x_{i+1}, x_i)}. \\
+Kolmogorov Cycle Condition: for every cycle $x_0, x_1, x_2, \dots, x_n = x_0$, \boxed{\prod_{i=0}^{n-1} p(x_i, x_{i+1}) = \prod_{i=0}^{n-1} p(x_{i+1}, x_i)}. For a $3 \times 3$ matrix one only has to check that $P_{12} P_{23} P_{31} = P_{13} P_{32} P_{21}$.\\
 
-Symmetrizable matrix $P$: \boxed{S = D P D^{-1}} is symmetric for some diagonal matrix $D$. If $P$ is symmetrizable, then $D = \text{diag}(\sqrt{\pi_i})$.
+Symmetrizable matrix $P$: \boxed{S = D P D^{-1}} is symmetric for some diagonal matrix $D$. If $P$ is symmetrizable, then $D = \text{diag}(\sqrt{\pi_i})$. \\
 
-\colorbox{red}{TODO: all linear markov chains are reversible, 3x3 KCC}
+All irreducible linear markov chains ($p(i, j) = 0$ if $|i-j| > 1$) are reversible, since all irreducible 2-state chains are reversible ($P_{ij} P_{ji} = P_{ji} P_{ij}$).
 
 
 \subsection{Limit Distributions}
-\colorbox{red}{TODO: perron frobenius, lim sum f(x) = sum f(x) pi(x)}
+If a Markov Chain is irreducible, \boxed{\tfrac{1}{n} \lim_{n \to \infty} p^n(x, y) = \pi(y)}. \\
+
+If a Markov Chain is irreducible and aperiodic, \boxed{\lim_{n \to \infty} p^n(x, y) = \pi(y)}. \\
+
 
 \subsection{Exit Distributions}
 $V_F = \min\{n \ge 0: X_n \in F\}$ is the Hitting Time of set $F$, the first time $X$ takes on a state in $F$. \\
