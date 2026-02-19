@@ -85,7 +85,9 @@ All irreducible linear markov chains ($p(i, j) = 0$ if $|i-j| > 1$) are reversib
 \subsection{Limit Distributions}
 If a Markov Chain is irreducible, \boxed{\tfrac{1}{n} \lim_{n \to \infty} p^n(x, y) = \pi(y)}. \\
 
-If a Markov Chain is irreducible and aperiodic, \boxed{\lim_{n \to \infty} p^n(x, y) = \pi(y)}. \\
+Perron-Frobenius: for irreducible and aperiodic $P$, \boxed{\lim_{n\to\infty} P^n = \vec{1} \pi} and \boxed{\lim_{n\to\infty} \mu P^n = \pi} for any $\mu$.
+
+\boxed{\tfrac{1}{n} \sum_{n=0}^\infty f(X_n) = \sum_x f(x) \pi(x)}. \\
 
 
 \subsection{Exit Distributions}
@@ -115,7 +117,7 @@ $$\left(
 \begin{array}{c|ccc|c}
 1   & 0   & 0   & 0   & 0 \\
 \hline
-0  & 1  & -.5  & 0   & 0 \\
+-.5  & 1  & -.5  & 0   & 0 \\
 0   & -.5  & 1  & -.5  & 0 \\
 0   & 0   & -.5  & 1  & 0 \\
 \hline
@@ -123,11 +125,7 @@ $$\left(
 \end{array}
 \right)
 \begin{pmatrix}
-h(0) \\
-h(1) \\
-h(2) \\
-h(3) \\
-h(4)
+h(0) \\ h(1) \\ h(2) \\ h(3) \\ h(4)
 \end{pmatrix}
 =
 \begin{pmatrix}
@@ -227,24 +225,20 @@ g(4) &= 0
 \end{align*}
 \end{minipage}
 \hspace{1.5em}
-\begin{minipage}[t]{0.40\textwidth}
+\begin{minipage}[t]{0.50\textwidth}
 $$\left(
 \begin{array}{c|ccc|c}
 1   & 0   & 0   & 0   & 0 \\
 \hline
-0  & 1  & -.5  & 0   & 0 \\
+-.5  & 1  & -.5  & 0   & 0 \\
 0   & -.5  & 1  & -.5  & 0 \\
-0   & 0   & -.5  & 1  & 0 \\
+0   & 0   & -.5  & 1  & -.5 \\
 \hline
 0   & 0   & 0   & 0   & 1
 \end{array}
 \right)
 \begin{pmatrix}
-g(0) \\
-g(1) \\
-g(2) \\
-g(3) \\
-g(4)
+g(0) \\ g(1) \\ g(2) \\ g(3) \\ g(4)
 \end{pmatrix}
 =
 \begin{pmatrix}
