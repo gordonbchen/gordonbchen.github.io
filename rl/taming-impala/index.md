@@ -1,6 +1,6 @@
 ---
 title: Taming IMPALA
-layout: post
+date: 2026-05-08
 ---
 
 Project: <a href="https://github.com/gordonbchen/taming-impala">https://github.com/gordonbchen/taming-impala</a>

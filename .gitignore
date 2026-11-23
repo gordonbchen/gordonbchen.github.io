@@ -6,3 +6,5 @@ vendor
 **/latexbuild/**
 !**/latexbuild/*.pdf
 
+.venv/
+__pycache__/

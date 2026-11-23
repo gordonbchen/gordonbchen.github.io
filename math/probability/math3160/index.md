@@ -1,6 +1,6 @@
 ---
 title: "Math 3160 Notes"
-layout: post
+date: 2026-01-18
 ---
 
 # 1: Combinatorics

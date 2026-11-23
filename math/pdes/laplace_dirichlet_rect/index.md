@@ -1,6 +1,6 @@
 ---
 title: "Laplace PDE: Dirichlet Problem on a Rectangle"
-layout: post
+date: 2025-11-24
 ---
 
 
@@ -46,7 +46,7 @@ $$u = \left[ d_1 \sinh(\lambda y) + d_2 \cosh(\lambda y) \right] \left[ (c_1 \si
 # Dirichlet Boundary Problem on a Rectangle:
 
 ### Non-Zero Bottom Edge:
-{% include post-img.html file="dp_rect_x0.png" width="60%" %}
+![Diagram](dp_rect_x0.png)
 
 Problem:
 
@@ -145,7 +145,7 @@ $$u_n = \sinh(\gamma_n x) \sin(\gamma_n y) \qquad \gamma_n = \frac{n \pi}{M}$$
 
 
 ### Generalizing:
-{% include post-img.html file="dp_rect.png" width="60%" %}
+![Diagram](dp_rect.png)
 <!-- https://math.preview.excalidraw.com/#json=l2_A6QyhPh2nk3Dmgc2wZ,nFsm7bWhxSxbAzM9bPyvww -->
 
 Problem:

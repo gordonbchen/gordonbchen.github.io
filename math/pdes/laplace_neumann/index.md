@@ -1,6 +1,6 @@
 ---
 title: "Laplace PDE: Neumann Problem on a Rectangle"
-layout: post
+date: 2025-11-25
 ---
 
 # Laplace PDE:
@@ -27,7 +27,7 @@ $$u = \left[ d_1 \sinh(\lambda y) + d_2 \cosh(\lambda y) \right] \left[ (c_1 \si
 # Neumann Boundary Problem on a Rectangle:
 
 ### Non-Zero Bottom Edge:
-{% include post-img.html file="nonzero_bottom.png" width="60%" %}
+![Diagram](nonzero_bottom.png)
 <!-- https://math.preview.excalidraw.com/#json=Fav938TQswSemeJ1YxDAf,b_ox8ozw9lXvET40Gq2XUg -->
 
 Problem:
@@ -157,7 +157,7 @@ $$u_n = \cosh(\gamma_n x) \cos(\gamma_n y) \qquad \gamma_n = \frac{n \pi}{M}$$
 
 
 ### Generalizing:
-{% include post-img.html file="neumann.png" width="60%" %}
+![Diagram](neumann.png)
 <!-- https://math.preview.excalidraw.com/#json=xXq7laoHxjc6OUuQaF-UE,b3hxb6-iEpPDNkWa6vwnhg -->
 
 Problem:
