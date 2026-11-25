@@ -9,11 +9,14 @@ Requires Python 3.10 or newer.
 ```sh
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-.venv/bin/python scripts/build.py
-.venv/bin/python -m http.server 8000 --directory _site
+.venv/bin/python scripts/preview.py
 ```
 
-Open http://localhost:8000. Run the build again after editing content; refresh the browser.
+Open http://localhost:8000. The preview script builds once, then automatically rebuilds when you save source files (including posts, CSS, images, and settings). Refresh the browser to see changes; browser refresh is manual. Stop with Ctrl+C.
+
+After the initial setup, just run `.venv/bin/python scripts/preview.py` (or `python3 scripts/preview.py` if Markdown is already installed). If port 8000 is busy, use `--port 8001`.
+
+For a one-time build without starting a server: `python3 scripts/build.py`.
 
 ## Add a post
 
@@ -62,10 +65,16 @@ Edit `static/style.css`; the rules are formatted separately so you can search fo
 | Header HTML | `page()` in `scripts/build.py` |
 
 
-After any edit, run `python3 scripts/build.py` and refresh the local preview. Hard-refresh (Ctrl+Shift+R) if the browser caches the old CSS.
+With `scripts/preview.py` running, save your edit and refresh the local preview; rebuilding is automatic. Otherwise, run `python3 scripts/build.py` first. Hard-refresh (Ctrl+Shift+R) if the browser caches the old CSS.
 
 ## GitHub Pages
 
 The included workflow builds `_site/` and deploys it when you push to `main` or `master`. In the repository's **Settings → Pages → Build and deployment**, select **GitHub Actions**. No Jekyll setup is required. The generated `_site/` folder is ignored by Git.
 
 This site assumes it is hosted at the domain root, as it is for `gordonbchen.github.io`.
+
+## Bundled font
+
+Computer Modern Serif is served locally from `assets/fonts/`, with regular, italic, bold, and bold-italic faces. Source: https://github.com/dreampulse/computer-modern-web-font. Its license is in `assets/fonts/COMPUTER-MODERN-OFL.txt`.
+
+Change `--font` in `static/style.css` to change the font across the site. The `@font-face` rules at the top load the font files. Embedded PDFs keep their own fonts; equations use MathJax’s mathematical glyphs.

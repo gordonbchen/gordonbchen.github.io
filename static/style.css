@@ -1,6 +1,39 @@
+@font-face {
+  font-family:"Computer Modern Serif";
+  src:url("/assets/fonts/cmunrm.woff") format("woff");
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"Computer Modern Serif";
+  src:url("/assets/fonts/cmunti.woff") format("woff");
+  font-weight:400;
+  font-style:italic;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"Computer Modern Serif";
+  src:url("/assets/fonts/cmunbx.woff") format("woff");
+  font-weight:700;
+  font-style:normal;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"Computer Modern Serif";
+  src:url("/assets/fonts/cmunbi.woff") format("woff");
+  font-weight:700;
+  font-style:italic;
+  font-display:swap;
+}
+
 /* Visual settings: colors in :root; main font in body; header title in .brand. */
 :root {
   color-scheme:dark;
+  --font:"Computer Modern Serif",serif;
   --bg:#080a0e;
   --text:#eeeff2;
   --muted:#989ba3;
@@ -11,7 +44,7 @@ body {
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font:20px/1.7 var(--font);
   -webkit-font-smoothing:antialiased}
 .shell {
   max-width:840px;
@@ -38,8 +71,7 @@ header {
   align-items:center;
   gap:12px;
   font-weight:400;
-  letter-spacing:-.035em;
-  font-size:24px}
+  font-size:28px}
 .brand img {
   width:40px;
   height:40px;
@@ -48,10 +80,10 @@ header {
 nav {
   display:flex;
   gap:24px;
-  font-size:14px;
+  font-size:18px;
   color:var(--muted)}
 .key {
-  font-family:monospace;
+  font-family:var(--font);
   margin-left:7px;
   border:1px solid var(--line);
   padding:0 5px}
@@ -59,13 +91,13 @@ main {
   min-height:65vh;
   padding:55px 0 70px}
 h1 {
-  font-size:32px;
+  font-size:36px;
   line-height:1.25;
   font-weight:550;
-  letter-spacing:-.045em;
+
   margin:0 0 16px}
 h2 {
-  font-size:14px;
+  font-size:18px;
   font-weight:500;
   color:var(--muted);
   margin:0 0 15px}
@@ -88,9 +120,9 @@ section+section {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  font:17px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+  font:21px/1.6 var(--font)}
 .count {
-  font:14px system-ui;
+  font:18px var(--font);
   color:var(--muted)}
 .posts li {
   display:flex;
@@ -109,37 +141,36 @@ section+section {
   font-weight:450}
 .path {
   display:block;
-  font:13px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;
+  font:17px/1.8 var(--font);
   overflow-wrap:anywhere}
 .posts time {
-  font:13px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;
+  font:17px/1.8 var(--font);
   white-space:nowrap;
   padding-top:2px}
 .breadcrumbs {
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-  font:14px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;
+  font:18px/1.8 var(--font);
   margin-bottom:27px}
 .directory-title {
   margin-bottom:32px;
-  font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+  font-family:var(--font)}
 .post-heading {
   margin-bottom:40px}
 .post-heading time {
-  font-size:14px}
+  font-size:18px}
 .prose {
   line-height:1.85;
   overflow-wrap:break-word}
 .prose h1,.prose h2,.prose h3 {
   color:var(--text);
-  font-size:23px;
+  font-size:27px;
   line-height:1.4;
   font-weight:550;
-  margin:38px 0 16px;
-  letter-spacing:-.02em}
+  margin:38px 0 16px;}
 .prose h3 {
-  font-size:19px}
+  font-size:23px}
 .prose a {
   text-decoration:underline;
   text-underline-offset:3px}
@@ -156,7 +187,7 @@ section+section {
   padding:20px;
   background:#10141c}
 .prose code {
-  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-family:var(--font);
   font-size:.9em}
 .prose blockquote {
   border-left:2px solid var(--muted);
@@ -198,14 +229,14 @@ label {
   margin:25px 0 12px}
 input {
   width:100%;
-  font:18px ui-monospace,SFMono-Regular,Consolas,monospace;
+  font:22px var(--font);
   padding:14px 16px;
   background:#0e1117;
   color:var(--text);
   border:1px solid #373d48;
   border-radius:3px}
 #search-status {
-  font-size:14px;
+  font-size:18px;
   margin-top:15px}
 .skip {
   position:absolute;
@@ -224,22 +255,22 @@ header {
   gap:18px;
   padding:25px 0 14px}
 .brand {
-  font-size:18px}
+  font-size:22px}
 nav {
   gap:25px}
 main {
   padding-top:38px}
 h1 {
-  font-size:28px}
+  font-size:32px}
 .posts li {
   gap:10px}
 .posts time {
-  font-size:12px}
+  font-size:16px}
 .contacts li {
   gap:12px}
 .contacts a {
   overflow-wrap:anywhere}
 .path {
-  font-size:12px}
+  font-size:16px}
 }
 
