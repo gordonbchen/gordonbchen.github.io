@@ -47,7 +47,7 @@
   the interval $(b-R, b+R)$ where $R = 1 / \limsup_j |a_j|^{1/j}$ is
   the radius of convergence.
   Furthermore, the power series converges uniformly on and is continuous
-  on every closed subinterval $[b-r, b+r]$, where $0 < r < R$.
+  on every compact subinterval $[b-r, b+r]$, where $0 \le r < R$.
 
   \begin{proof}
     By the Root Test, the power series $\sum_{j=0}^\infty a_j (x-b)^j$ converges when
@@ -63,13 +63,13 @@
     $\limsup_j M_j^{1/j} = \limsup_j |a_j|^{1/j}r = \frac{r}{R} < 1$,
     so $\sum_{j=0}^\infty M_j$ converges.
     Then, by the Weierstrass M-Test, we have that $\sum_{j=0}^\infty a_j (x-b)^j$ converges
-    uniformly on every closed subinterval $[b-r, b+r]$, where $0 \le r < R$.
+    uniformly on every compact subinterval $[b-r, b+r]$, where $0 \le r < R$.
 
-    Since the series converges uniformly on every closed subinterval
+    Since the series converges uniformly on every compact subinterval
     and the series is the limit of partial sums which are polynomials and therefore
-    continuous functions, then the series is continuous on any closed subinterval.
+    continuous functions, then the series is continuous on any compact subinterval.
     Furthermore, since every point $x \in (b-R, b+R)$ is in
-    some $[b-r, b+r]$ with $r < R$, then the series is continuous on $(b-R, b+R)$.
+    some compact subinterval, the series is continuous on $(b-R, b+R)$.
   \end{proof}
 \end{thm}
 
@@ -77,7 +77,7 @@
 \section{Differentiating and Integrating}
 \begin{thm}
   The power series $\sum_{j=0}^\infty a_j (x-b)^j$ converging on $(b-R, b+R)$ can be
-  integrated and differentiated term-by-term infinitely many times on any closed
+  integrated and differentiated term-by-term infinitely many times on any compact
   subinterval of $(b-R, b+R)$.
 
   \begin{proof}
@@ -94,12 +94,12 @@
     and
     $$
       \limsup_j \left|j a_j (x-b)^{j-1}\right|^{1/j}
-      < \limsup_j j^{1/j} |a_j|^{1/j} |x-b|^{1-1/j}
+      = \limsup_j j^{1/j} |a_j|^{1/j} |x-b|^{1-1/j}
       = \frac{|x-b|}{R}
     $$
     so the new series converge on $(b-R, b+R)$ and diverge outside $[b-R, b+R]$
     just like the original series,
-    so they are also uniformly convergent on any closed subinterval of $(b-R, b+R)$.
+    so they are also uniformly convergent on any compact subinterval of $(b-R, b+R)$.
 
     Uniform convergence of the series then allows us to integrate term by term and get the integral
     of the entire series (where the integral is evaluated between any two points inside an interval
@@ -110,7 +110,7 @@
     $$
 
     Since all partial sums are differentiable (polynomials),
-    the derivatives of the partial sums converge uniformly on every closed subinterval,
+    the derivatives of the partial sums converge uniformly on every compact subinterval,
     and the series is convergent at at least one point,
     then the series is differentiable and its derivative (at a point inside the subinterval)
     is the term by term derivative (the limit of the derivatives of the partial sums):
@@ -121,7 +121,7 @@
 
     Since the radius of convergence of the term-by-term differentiated and integrated series
     is the same as the original series, we can differentiate and integrate again, term-by-term, and
-    infinitely many times on any closed interval inside $(b-R, b+R)$.
+    infinitely many times on any compact interval inside $(b-R, b+R)$.
   \end{proof}
 \end{thm}
 
@@ -137,10 +137,10 @@
   Then $\lim_j \frac{1}{(j!)^{1/j}} = 0$, so $e^x$ converges on $\mathbb{R}$ by the
   Root Test.
 
-  Then $e^x$ converges uniformly on every closed subinterval of $\mathbb{R}$,
+  Then $e^x$ converges uniformly on every compact subinterval of $\mathbb{R}$,
   so we can differentiate and integrate it term-by-term infinitely many times on that subinterval.
   Then $e^x$ is infinitely differentiable on $\mathbb{R}$ and integrable on every
-  closed subinterval of $\mathbb{R}$.
+  compact subinterval of $\mathbb{R}$.
 \end{ex}
 
 \end{document}
