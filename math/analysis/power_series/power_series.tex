@@ -1,0 +1,146 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{amsthm, amsmath, amssymb, graphicx, hyperref, url, pdfpages, setspace}
+\onehalfspacing
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lemma}[thm]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{defn}[thm]{Definition}
+
+\title{Power Series}
+\author{Gordon Chen}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Weierstrass M-Test}
+\begin{thm}
+  Let $f_j : X \to \mathbb{R}$.
+  If $|f_j| \le M_j$ on $X$ and $\sum_{j=0}^\infty M_j$ converges,
+  then the series $\sum_{j=0}^\infty f_j(x)$ converges absolutely and uniformly on $X$.
+
+  \begin{proof}
+    Let $\epsilon > 0$. Since $\sum_{j=0}^\infty M_j$ converges, there exists some $J$ such that
+    $n > m \ge J$ implies that $\sum_{j=m+1}^n M_j < \epsilon$. Then 
+    $$
+    |s_n(x) - s_m(x)| = \left|\sum_{j=m+1}^n f_j(x) \right|
+    \le \sum_{j=m+1}^n |f_j(x)| \le \sum_{j=m+1}^n M_j
+    $$
+    for $n > m \ge J$ and all $x \in X$, so the sequence of partial sums is uniformly Cauchy
+    on complete $\mathbb{R}$, so the series converges uniformly
+    (and absolutely since we bounded $\sum_{j=m+1}^n |f_j(x)|$).
+  \end{proof}
+\end{thm}
+
+
+\section{Power Series}
+\begin{thm}
+  The power series $\sum_{j=0}^\infty a_j (x-b)^j$ converges absolutely on
+  the interval $(b-R, b+R)$ where $R = 1 / \limsup_j |a_j|^{1/j}$ is
+  the radius of convergence.
+  Furthermore, the power series converges uniformly on and is continuous
+  on every closed subinterval $[b-r, b+r]$, where $0 < r < R$.
+
+  \begin{proof}
+    By the Root Test, the power series $\sum_{j=0}^\infty a_j (x-b)^j$ converges when
+    $\limsup_j |a_j (x-b)^j|^{1/j} < 1,$
+    or equivalently, when $|x-b| < 1 / \limsup_j |a_j|^{1/j}$.
+    We denote the radius of convergence $R = 1 / \limsup_j |a_j|^{1/j}$.
+    Then, by the Root Test, the power series converges on $(b-R, b+R)$ and diverges outside
+    $[b-R, b+R]$.
+
+    Let $|x-b| \le r < R$.
+    Then $|a_j (x-b)^j| \le |a_j|r^j = M_j$.
+    Applying the Root Test, we get that
+    $\limsup_j M_j^{1/j} = \limsup_j |a_j|^{1/j}r = \frac{r}{R} < 1$,
+    so $\sum_{j=0}^\infty M_j$ converges.
+    Then, by the Weierstrass M-Test, we have that $\sum_{j=0}^\infty a_j (x-b)^j$ converges
+    uniformly on every closed subinterval $[b-r, b+r]$, where $0 \le r < R$.
+
+    Since the series converges uniformly on every closed subinterval
+    and the series is the limit of partial sums which are polynomials and therefore
+    continuous functions, then the series is continuous on any closed subinterval.
+    Furthermore, since every point $x \in (b-R, b+R)$ is in
+    some $[b-r, b+r]$ with $r < R$, then the series is continuous on $(b-R, b+R)$.
+  \end{proof}
+\end{thm}
+
+
+\section{Differentiating and Integrating}
+\begin{thm}
+  The power series $\sum_{j=0}^\infty a_j (x-b)^j$ converging on $(b-R, b+R)$ can be
+  integrated and differentiated term-by-term infinitely many times on any closed
+  subinterval of $(b-R, b+R)$.
+
+  \begin{proof}
+    Consider the series we get by term-by-term integration and differentiation,
+    $\sum_{j=0}^\infty \frac{a_j}{j+1} (x-b)^{j+1}$ and $\sum_{j=1}^\infty j a_j (x-b)^{j-1}$
+    respectively.
+    Using the fact that $\lim_j \left(\frac{1}{j+1}\right)^{1/j} = \lim_j j^{1/j} =1$,
+    applying the Root Test to the new series gives
+    $$
+      \limsup_j \left|\frac{a_j}{j+1} (x-b)^{j+1}\right|^{1/j}
+      = \limsup_j \left(\frac{1}{j+1}\right)^{1/j} |a_j|^{1/j} |x-b|^{1+1/j}
+      = \frac{|x-b|}{R}
+    $$
+    and
+    $$
+      \limsup_j \left|j a_j (x-b)^{j-1}\right|^{1/j}
+      < \limsup_j j^{1/j} |a_j|^{1/j} |x-b|^{1-1/j}
+      = \frac{|x-b|}{R}
+    $$
+    so the new series converge on $(b-R, b+R)$ and diverge outside $[b-R, b+R]$
+    just like the original series,
+    so they are also uniformly convergent on any closed subinterval of $(b-R, b+R)$.
+
+    Uniform convergence of the series then allows us to integrate term by term and get the integral
+    of the entire series (where the integral is evaluated between any two points inside an interval
+    of uniform convergence):
+    $$
+    \int_b^x \sum_{j=0}^\infty a_j (t-b)^j dt = \sum_{j=0}^\infty \int_b^x a_j (t-b)^j dt
+    = \sum_{j=0}^\infty \frac{a_j}{j+1} (x-b)^{j+1}.
+    $$
+
+    Since all partial sums are differentiable (polynomials),
+    the derivatives of the partial sums converge uniformly on every closed subinterval,
+    and the series is convergent at at least one point,
+    then the series is differentiable and its derivative (at a point inside the subinterval)
+    is the term by term derivative (the limit of the derivatives of the partial sums):
+    $$
+    \frac{d}{dx} \sum_{j=0}^\infty a_j (x-b)^j = \sum_{j=0}^\infty \frac{d}{dx} a_j (x-b)^j
+    = \sum_{j=1}^\infty j a_j (x-b)^{j-1}.
+    $$
+
+    Since the radius of convergence of the term-by-term differentiated and integrated series
+    is the same as the original series, we can differentiate and integrate again, term-by-term, and
+    infinitely many times on any closed interval inside $(b-R, b+R)$.
+  \end{proof}
+\end{thm}
+
+
+\section{Examples}
+\begin{ex}
+  Let $e^x$ be defined as $e^x = \sum_{j=0}^\infty \frac{x^j}{j!}$.
+
+  By the Root Test, $e^x$ converges when
+  $\limsup_j \left|\frac{x^j}{j!}\right|^{1/j} = |x| \limsup_j \frac{1}{(j!)^{1/j}} < 1$.
+  See that $j! \ge (\frac{j}{2})^\frac{j}{2}$, so
+  $(j!)^{1/j} \ge (\frac{j}{2})^{\frac{1}{2}}$, and $\lim_j (j!)^{1/j} = \infty$.
+  Then $\lim_j \frac{1}{(j!)^{1/j}} = 0$, so $e^x$ converges on $\mathbb{R}$ by the
+  Root Test.
+
+  Then $e^x$ converges uniformly on every closed subinterval of $\mathbb{R}$,
+  so we can differentiate and integrate it term-by-term infinitely many times on that subinterval.
+  Then $e^x$ is infinitely differentiable on $\mathbb{R}$ and integrable on every
+  closed subinterval of $\mathbb{R}$.
+\end{ex}
+
+\end{document}
