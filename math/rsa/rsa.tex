@@ -1,0 +1,243 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{amsthm, amsmath, amssymb, graphicx, hyperref, url, pdfpages}
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lemma}[thm]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{defn}[thm]{Definition}
+
+\title{RSA Cryptography}
+\author{Gordon Chen}
+\date{Fall 2026}
+
+\begin{document}
+\maketitle
+
+\section{Introduction} \label{intro}
+In this paper we will describe RSA cryptography.
+In Section \ref{sec_prelim} we will state some results from number theory that are
+critical for RSA's correctness.
+In Section \ref{sec_rsa} we will describe the RSA cryptography scheme.
+In Section \ref{sec_correctness} we will prove that RSA is correct.
+In Section \ref{sec_security} we will discuss the security of RSA.
+Finally, in Section \ref{sec_history} we will discuss the history of RSA.
+
+\section{Preliminaries} \label{sec_prelim}
+First we state some preliminaries that will be critical to our analysis of RSA's correctness later.
+
+\begin{defn}
+  We define the integers modulo $n$ as the set of equivalence classes
+  $\mathbb{Z}_n = \{[0], [1], ..., [n-1]\}$
+  representing the possible remainders after dividing integers by $n$.
+\end{defn}
+
+For example, $\mathbb{Z}_3 = \{[0], [1], [2]\}$. For the sake of convenience,
+we can also write $\mathbb{Z}_3 = \{0, 1, 2\}$.
+
+We leave it as an exercise to the reader that addition and multiplication are
+independent of the choice of representatives in $\mathbb{Z}_n$.
+We then define exponentiation modulo $n$ as just repeated multiplication, so
+$a^k = \prod_{i=1}^k a \pmod n$.
+
+We say that $a \in \mathbb{Z}_n$ is invertible modulo $n$ if $a$ has
+a multiplicative inverse modulo $n$, i.e. if there exists some $a^{-1} \in \mathbb{Z}_n$
+such that $a a^{-1} = 1 \pmod n$.
+
+\begin{thm}
+  An element $a \in \mathbb{Z}_n$ has a multiplicative inverse if and only if $\gcd(a, n) = 1$.
+
+  \begin{proof}
+    Assume that $\gcd(a, n) = 1$.
+    By the Bezout Identity, there exists $x,y \in \mathbb{Z}$ such that
+    $ax+ny=\gcd(a,n)$, where
+    $x$ and $y$ can be found using the extended Euclidean algorithm.
+    We leave it as an exercise to the reader to show that Bezout's Identity is true.
+    If $\gcd(a,n) = 1$, then we can find $x,y \in \mathbb{Z}$ so
+    that $x a + y n = 1$, so $x a = 1 \pmod n$.
+    Thus, $x$ is the multiplicative inverse of $a$ modulo $n$.
+
+    Conversely, if $ax = 1\pmod n$, then $ax+ny=1$ for some integer $y$.
+    If a common divisor $d$ divides both $a$ and $n$, then $d$ must divide $1$, so
+    $\gcd(a, n) = 1$ \cite{conrad_mod}.
+  \end{proof}
+\end{thm}
+
+We are now ready to state and prove Fermat's little Theorem.
+
+\begin{thm}
+  Let $p$ be prime. Then $a^{p-1} = 1 \pmod p$ for $\gcd(a, p) = 1$.
+
+  \begin{proof}
+    We first show that $f : \mathbb{Z}_p \to \mathbb{Z}_p$ where $f(n) = a n \pmod p$
+    is a bijection.
+
+    We show that $f$ is injective. Let $f(n) = f(m)$. Then $a n = a m \pmod p$.
+    Since $\gcd(a, p) = 1$, then $a$ is invertible modulo $p$, so $n = m \pmod p$
+    and $f$ is injective.
+
+    Since $\mathbb{Z}_p = \{0, 1, ..., p-1\}$ has $p$ elements, it is a finite set,
+    so any injection from $\mathbb{Z}_p$ to itself is a bijection.
+
+    Since $f$ is a bijection, $\mathbb{Z}_p$ and $f(\mathbb{Z}_p)$ are the same sets.
+    Then,
+    \begin{align*}
+      (1)(2)...(p-1) &= (1 a) (2 a) ... (p-1) a \pmod p \\
+      (1)(2)...(p-1) &= a^{p-1} (1)(2)...(p-1) \pmod p.
+    \end{align*}
+    Since $p$ is prime, all numbers $1 \le n < p$ have $\gcd(n, p) = 1$ and are therefore
+    invertible modulo $p$. Then right-multiplying by their inverses, we get that
+    \begin{align*}
+      (1)(2)...(p-1) &= a^{p-1} (1)(2)...(p-1) \pmod p \\
+      1 &= a^{p-1} \pmod p
+    \end{align*}
+    and we are done \cite{conrad_flt}.
+  \end{proof}
+\end{thm}
+
+We are now ready to talk about RSA.
+
+
+\section{RSA} \label{sec_rsa}
+Here we present the classical RSA cryptography scheme developed in the original RSA paper
+which uses Euler's totient function $\phi(N) = (p-1)(q-1)$.
+However, note that modern RSA specifications only require $ed = 1 \pmod{\lambda(N)}$, where
+Carmichael's function is $\lambda(N) = \text{lcm}(p-1, q-1)$ \cite{rsa}.
+
+Choose (extremely large and random) distinct primes $p$ and $q$ and let $N = pq$.
+Let $\phi(N) = (p-1)(q-1)$. Really this is Euler's totient function $\phi$ evaluated at $N = pq$,
+but for our purposes it is enough to just take it as a symbol representing $(p-1)(q-1)$.
+Then choose a positive integer $e$ with $\gcd(e, \phi(N)) = 1$, and a positive integer $d$
+such that $d = e^{-1} \pmod{\phi(N)}$.
+
+The public key is $e, N$ and the private key is $d$.
+
+To encrypt a message $m \in \mathbb{Z}_N$, compute $c = m^e \pmod N$.
+To decrypt a piece of ciphertext $c \in \mathbb{Z}_N$, compute $m' = c^d \pmod N$.
+
+
+\section{Correctness} \label{sec_correctness}
+Now we prove RSA's correctness, that decrypting an encrypted message
+recovers the original message.
+
+\begin{thm}
+  Let $p$, $q$ be distinct primes. Let $N = pq$ and let $e, d$ be positive integers
+  such that $d = e^{-1} \pmod{\phi(N)}$.
+  Let $m \in \mathbb{Z}_N$. Then $m = (m^e)^d \pmod N$.
+
+  \begin{proof}
+    Since $N = pq$, we have that
+    \begin{align*}
+      m = (m^e)^d \pmod N &\iff m = (m^e)^d \pmod{pq} \\
+      &\iff pq | (m^{ed} - m).
+    \end{align*}
+    Since $p$ and $q$ are distinct primes, then 
+    \begin{align*}
+      pq | (m^{ed} - m) &\iff p | (m^{ed} - m) \text{ and } q | (m^{ed} - m) \\
+                        &\iff m^{ed} = m \pmod p \text{ and } m^{ed} = m \pmod q.
+    \end{align*}
+    Since $d = e^{-1} \pmod{\phi(N)}$, then $ed = 1 \pmod{(p-1)(q-1)}$, so $ed = k(p-1)(q-1) + 1$
+    for some nonnegative integer $k$. Then,
+    \begin{align*}
+      m^{ed} = m \pmod p &\iff m^{k(p-1)(q-1) + 1} = m \pmod p \\
+                        &\iff m \cdot (m^{p-1})^{k(q-1)} = m \pmod p.
+    \end{align*}
+    If $p | m$ then $m = 0 \pmod p$ and we have that $m^{ed} = 0 = m \pmod p$.
+
+    If $p \nmid m$ then $m$ is invertible modulo $p$, so by Fermat's little Theorem,
+    we have that $m^{p-1} = 1 \pmod p$, so $m \cdot (m^{p-1})^{k(q-1)} = m \pmod p$.
+
+    The analysis is exactly the same for $q$. Thus we have shown that $m = (m^e)^d \pmod N$,
+    so RSA encryption then decryption recovers the original message \cite{conrad_rsa}.
+  \end{proof}
+\end{thm}
+
+
+\section{Security} \label{sec_security}
+In the previous section we proved that RSA is correct, that if you encrypt then decrypt a message
+using RSA, you will recover the original message.
+However, this does not in any way mean that RSA is secure, that adversaries
+without the secret key will not be able to decipher the encrypted message.
+
+In RSA, the public key is $e, N$ and the secret key is $d$ where $d = e^{-1} \pmod{\phi(N)}$
+and $N = pq$ for primes $p, q$.
+If an adversary could find $\phi(N)$, then they could solve for $d = e^{-1} \pmod{\phi(N)}$ by
+the extended Euclidean algorithm, and then break encryption since they now know the private key.
+Given $N$, if an adversary could factor $N$ and recover $p, q$ such that $N = pq$, then
+they could compute $\phi(N) = (p-1)(q-1)$ and then solve for private key $d$.
+Thus, it is necessary (but not sufficient, as there may be other attacks)
+for RSA security that factoring the product of two large primes is difficult.
+There is no proof that factoring, or finding $d$ from $e$ and $N$ is ``hard'', meaning
+that there does not exist a polynomial time (classical) algorithm to find factors of
+$N$ or recover $d$.
+But since currently there is no known (classical) polynomial time algorithm for these 2 problems,
+RSA is essentially assumed to be secure, with an important caveat that currently we have only
+described textbook RSA, which is deterministic and therefore not a secure encryption scheme since
+adversaries can simply encrypt candidate plaintexts and compare ciphertexts. For actual RSA
+security, one must further incorporate a randomized encoding scheme, such as RSA-OAEP \cite{oaep}.
+
+As of writing (Fall 2026), the minimum recommended RSA key length is 2048 bits,
+meaning that the modulus $N$ should be 2048 bits long, so $p$ and $q$ should be
+1024 bits long \cite{rsa}.
+
+Conventionally, $e = 65537 = 2^{2^4} + 1$ is fixed \cite{rsa}. The number $65537$ is
+the largest known Fermat prime, a prime of the form $2^{2^n} + 1$ \cite{fermat_prime}.
+Its special form allows for efficient modular exponentiation, since computing
+$m^{2^{16}+1} \pmod N$ only requires 16 modular squarings to find $m^{2^{16}} \pmod N$
+and then a single modular multiplication to find $m^{2^{16} + 1} \pmod N$.
+In general, choosing $e = \sum_{i=0}^k b_i 2^i$, where $b_i \in \{0,1\}$ and $b_k \ne 0$, uses $k$
+modular squarings and $\sum_{i=0}^k \textbf{1}\{b_i = 1\} - 1$ modular multiplications
+with the standard binary exponentiation algorithm.
+The choice $e = 65537$ is not always valid for primes $p, q$ since we need $e$ to be invertible
+modulo $\phi(N) = (p-1)(q-1)$. If $\gcd(e, \phi(N)) = \gcd(e, (p-1)(q-1)) > 1$, then since
+$e = 65537$ is prime, $e|(p-1)$ or $e|(q-1)$, so we just have to regenerate each prime that is congruent
+to $1$ modulo $e$ \cite{e_65537}.
+
+In 1991, RSA Laboratories put out the RSA Factoring challenge, a list of RSA keys (moduli)
+to factor ranging from 330 bits (100 decimal digits) to 2048 bits (617 decimal digits)
+\cite{rsa_challenge}.
+The largest of these keys confirmed to be factored is RSA-896, with 896 bits and
+270 decimal digits, which was factored on September 19th, 2026 by Stephen A. Weis with the
+help of Claude. Factoring RSA-896 used a maximum of 2048 GPUs for a total of
+30 GPU-years over 10 days \cite{rsa_896}.
+For context, RSA-260 was factored by Eric Lu with the help of Devin at Cognition AI on
+September 3rd, 2026, spending 13.5 GPU-years and costing around \$400,000 at market compute prices
+\cite{rsa_260}.
+
+While there is currently no known classical algorithm for factoring numbers in polynomial time,
+sufficiently large, fault-tolerant quantum computers could do so by using Shor's algorithm \cite{shor}, which poses a threat
+for RSA since factoring would no longer be hard \cite{rsa}.
+
+There are many other considerations important for RSA security, including
+the necessity of strong pseudo-random number generators, side channel and timing attacks,
+as well as robustness against heuristic factoring algorithms \cite{rsa}.
+
+
+\section{History} \label{sec_history}
+In this section, we will give a brief history of RSA.
+
+The RSA cryptosystem is named after Rivest, Shamir, and Adleman, the three inventors of RSA.
+Rivest, Shamir, and Adleman invented RSA at MIT in 1977. Interestingly enough, in 1973,
+Clifford Cocks invented an equivalent encryption scheme at Britain's Government Communications
+Headquarters (GCHQ) intelligence agency. However, Cocks' system was not declassified until 1997
+\cite{rsa}.
+
+Today, RSA is widely used for Public Key Infrastructure (PKI) certificates, SSH authentication,
+and more, but many systems are migrating towards elliptic curve based cryptosystems
+\cite{elliptic_curve} and post-quantum secure lattice based cryptosystems \cite{lattice}.
+
+
+\clearpage
+\newpage
+\bibliographystyle{plain}
+\bibliography{refs}
+
+% \includepdf[pages=-]{rsa_feedback.pdf}
+
+\end{document}
